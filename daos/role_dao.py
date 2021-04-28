@@ -13,21 +13,18 @@ class RoleDao:
         roles = []
 
         for record in records:
-            roles.append()
+            roles.append(Role(id=record[0], name=record[1]))
 
         return roles
 
     @staticmethod
     def get_role(id):
-        sql = "Select id, name from roles where id = %s"
+        sql = "Select * from roles where id = %s"
         cursor = connection.cursor()
         cursor.execute(sql, [id])
         record = cursor.fetchone()
-        try:
-            role = Role()
-            return role
-        except TypeError as e:
-            return False
+        role = Role(id=record[0], name=record[1])
+        return role
 
     @staticmethod
     def update_role(changing_role):
@@ -35,7 +32,7 @@ class RoleDao:
         cursor = connection.cursor()
         cursor.execute(sql, [changing_role.name, changing_role.id])
         connection.commit()
-        return cursor.rowcount
+        return changing_role
 
     @staticmethod
     def delete_role(id):
