@@ -17,9 +17,9 @@ class EmployeeDao:
         for record in records:
             employee = Employee(id=record[0], first_name=record[1], last_name=record[2], login_id=record[3])
             employee.department = DepartmentDao.get_department(record[4])
-            employee.role = RoleDao.get_role(record[6])
-            if record[7] is not None:
-                employee.supervisor = EmployeeDao.get_employee(record[7])
+            employee.role = RoleDao.get_role(record[5])
+            if record[6] is not None:
+                employee.supervisor = EmployeeDao.get_employee(record[6])
 
         return employees
 
@@ -31,8 +31,23 @@ class EmployeeDao:
         record = cursor.fetchone()
         employee = Employee(id=record[0], first_name=record[1], last_name=record[2], login_id=record[3])
         employee.department = DepartmentDao.get_department(record[4])
-        employee.role = RoleDao.get_role(record[6])
-        if record[7] is not None:
-            employee.supervisor = EmployeeDao.get_employee(record[7])
+        employee.role = RoleDao.get_role(record[5])
+        if record[6] is not None:
+            employee.supervisor = EmployeeDao.get_employee(record[6])
         return employee
 
+    @staticmethod
+    def login(login_id):
+        sql = "Select * from employees where login_id = %s"
+        cursor = connection.cursor()
+        cursor.execute(sql, [login_id])
+        record = cursor.fetchone()
+        if record:
+            employee = Employee(id=record[0], first_name=record[1], last_name=record[2], login_id=record[3])
+            employee.department = DepartmentDao.get_department(record[4])
+            employee.role = RoleDao.get_role(record[5])
+            if record[6] is not None:
+                employee.supervisor = EmployeeDao.get_employee(record[6])
+            return employee
+        else:
+            return False
