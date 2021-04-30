@@ -26,26 +26,3 @@ class RoleDao:
         role = Role(id=record[0], name=record[1])
         return role
 
-    @staticmethod
-    def update_role(changing_role):
-        sql = "Update roles set name=%s where id=%s"
-        cursor = connection.cursor()
-        cursor.execute(sql, [changing_role.name, changing_role.id])
-        connection.commit()
-        return changing_role
-
-    @staticmethod
-    def delete_role(id):
-        sql = "Delete from roles where id = %s"
-        cursor = connection.cursor()
-        cursor.execute(sql, [id])
-        connection.commit()
-        return cursor.rowcount
-
-    @staticmethod
-    def create_role(role):
-        sql = "Insert into roles values (default, %s)"
-        cursor = connection.cursor()
-        cursor.execute(sql, [role.name])
-        connection.commit()
-        return True
