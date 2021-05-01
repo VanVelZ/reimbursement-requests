@@ -1,6 +1,6 @@
 class Course:
 
-    def __init__(self, name, type, start_date, end_date, grading_format, cost, id=None):
+    def __init__(self, name, start_date, end_date, cost, grading_format=None, id=None, type=None):
         self.name = name
         self.type = type
         self.start_date = start_date

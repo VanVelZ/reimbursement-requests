@@ -18,8 +18,7 @@ create table employees(id serial primary key,
 					   first_name varchar(50) not null,
 					   last_name varchar(50) not null,
 					   login_id varchar(50) unique not null,
-					   department_id int,
-					   "password" varchar(100) not null,
+					   department_id int not null,
 					   role_id int not null,
 					   supervisor_id int);
 create table course_types(id serial primary key,
@@ -29,7 +28,7 @@ create table courses(id serial primary key,
 					 "name" varchar(100) not null,
 					 "type_id" int not null,
 					 start_date date not null,
-					 end_date date,
+					 end_date date not null,
 					 grading_format_id int not null,
 					 "cost" decimal not null);
 create table roles(id serial primary key,
@@ -42,7 +41,8 @@ create table reimbursements(id serial primary key,
 							status_id int not null,
 							date_submitted date not null,
 							course_id int not null,
-							amount decimal not null);
+							amount decimal not null,
+							message varchar(250) not null default '');
 create table grading_formats(id serial primary key,
 							 "type" varchar(50) not null,
 							 requires_presentation bool not null);
@@ -63,7 +63,8 @@ insert into reimbursement_status("name") values
 								('Pending BenCo Approval'),
 								('Awaiting Grade/Presentation Submission'),
 								('Approved'),
-								('Denied');
+								('Denied'),
+								('More info needed');
 insert into course_types("name", reimbursement_percent) values
 				  		('University', 0.8),
 				  		('Seminar', 0.6),
@@ -92,15 +93,16 @@ insert into grading_formats ("type", requires_presentation) values
 						  	('Standards', true),
 						  	('Narrative', true),
 						  	('Other', true);
-insert into employees (first_name, last_name, login_id, department_id, "password", role_id, supervisor_id) values
-					  ('Jim', 'Jimmy', '100000', 1, 'password', 1, null),
-					  ('Sam', 'Sammy', '100001', 2, 'password', 1, null),
-					  ('Tom', 'Tommy', '100002', 3, 'password', 1, null),
-					  ('Beth', 'Bethany', '100003', 4, 'password', 1, null),
-					  ('Jeff', 'Jefferson', '100004', 1, 'password', 2, 1),
-					  ('Wash', 'Washington', '100005', 2, 'password', 2, 2),
-					  ('Carp', 'Carpenter', '100006', 3, 'password', 2, 3),
-					  ('Wash', 'Washington', '100007', 2, 'password', 2, 4);
+insert into employees (first_name, last_name, login_id, department_id, role_id, supervisor_id) values
+					  ('Jim', 'Jimmy', '100000', 1, 1, null),
+					  ('Sam', 'Sammy', '100001', 2, 1, null),
+					  ('Tom', 'Tommy', '100002', 3, 1, null),
+					  ('Beth', 'Bethany', '100003', 4, 1, null),
+					  ('Jeff', 'Jefferson', '100004', 1, 2, 1),
+					  ('Wash', 'Washington', '100005', 2, 2, 2),
+					  ('Carp', 'Carpenter', '100006', 3, 2, 3),
+					  ('Zach', 'Zachary', '100007', 2, 2, 4);
+update departments set head_employee_id = 1 where id=1;
 insert into reimbursements (employee_id, status_id, course_id, date_submitted, amount) values
 								  (1, 1, 1, now(), 0),
 								  (1, 1, 1, now(), 0),
