@@ -81,8 +81,11 @@ insert into departments ("name", head_employee_id) values
 						('Science', null),
 						('Math', null),
 						('History', null),
-						('Information Technology', null),
+						('Computer Science', null),
 						('Art', null),
+						('Alternative History', null),
+						('Culinary Arts', null),
+						('Athletics', null),
 						('Administration', null);
 insert into grading_formats ("type", requires_presentation) values
 						  	('Percentage', false),
@@ -101,13 +104,28 @@ insert into employees (first_name, last_name, login_id, department_id, role_id, 
 					  ('Jeff', 'Jefferson', '100004', 1, 2, 1),
 					  ('Wash', 'Washington', '100005', 2, 2, 2),
 					  ('Carp', 'Carpenter', '100006', 3, 2, 3),
-					  ('Zach', 'Zachary', '100007', 2, 2, 4);
+					  ('Carl', 'Carlton', '100008', 1, 1, 2),
+					  ('Barb', 'Barbara', '100009', 2, 1, 6),
+					  ('Smith', 'Smithington', '200000', 3, 1, 6),
+					  ('Ken', 'Kenneth', '200001', 4, 1, 6),
+					  ('Jon', 'Jonathon', '200002', 4, 2, 2),
+					  ('Fred', 'Fredrick', '200003', 2, 2, 7),
+					  ('Nick', 'Nicholas', '200004', 3, 2, 1),
+					  ('Dill', 'Dillion', '100007', 2, 2, 2);
 insert into reimbursements (employee_id, status_id, course_id, date_submitted, amount) values
 								  (1, 1, 1, now(), 0),
 								  (1, 1, 1, now(), 0),
 								  (1, 1, 1, now(), 0);
 
 update departments set head_employee_id = 1 where id=1;
+update departments set head_employee_id = 2 where id=2;
+update departments set head_employee_id = 3 where id=3;
+update departments set head_employee_id = 4 where id=4;
+update departments set head_employee_id = 5 where id=5;
+update departments set head_employee_id = 6 where id=6;
+update departments set head_employee_id = 7 where id=7;
+update departments set head_employee_id = 8 where id=8;
+update departments set head_employee_id = 9 where id=9;
 
 
 alter table employees
