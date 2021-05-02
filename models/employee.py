@@ -1,3 +1,4 @@
+
 class Employee:
 
     def __init__(self,
@@ -5,7 +6,7 @@ class Employee:
                  last_name,
                  login_id,
                  department=None,
-                 role="Unassigned",
+                 role=None,
                  supervisor=None,
                  id=None):
         self.first_name = first_name
@@ -15,6 +16,27 @@ class Employee:
         self.role = role
         self.supervisor = supervisor
         self.id = id
-        self.department_employees = []
-        self.supervised_employees = []
+        self.reimbursements = []
+        self.department_employees_reimbursements = []
+        self.supervised_employees_reimbursements = []
 
+    def serialize(self):
+        return {
+            "id": self.id,
+            "firstName": self.first_name,
+            "lastName": self.last_name,
+            "department": self.department.serialize(),
+            "role": self.role.serialize(),
+            "supervisor": self.supervisor.serialize(),
+            "reimbursements": self._get_reimbursements_as_json(self.reimbursements),
+            "supervisedReimbursements": self._get_reimbursements_as_json(self.supervised_employees_reimbursements),
+            "departmentReimbursements": self._get_reimbursements_as_json(self.department_employees_reimbursements)
+
+        }
+
+    @staticmethod
+    def _get_reimbursements_as_json(reimbursements):
+        jsons = []
+        for reimbursement in reimbursements:
+            jsons.append(reimbursement.serialize())
+        return jsons

@@ -102,11 +102,13 @@ insert into employees (first_name, last_name, login_id, department_id, role_id, 
 					  ('Wash', 'Washington', '100005', 2, 2, 2),
 					  ('Carp', 'Carpenter', '100006', 3, 2, 3),
 					  ('Zach', 'Zachary', '100007', 2, 2, 4);
-update departments set head_employee_id = 1 where id=1;
 insert into reimbursements (employee_id, status_id, course_id, date_submitted, amount) values
 								  (1, 1, 1, now(), 0),
 								  (1, 1, 1, now(), 0),
 								  (1, 1, 1, now(), 0);
+
+update departments set head_employee_id = 1 where id=1;
+
 
 alter table employees
 add constraint fk_department

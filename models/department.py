@@ -4,3 +4,13 @@ class Department:
         self.name = name
         self.head = head
         self.id = id
+
+    def serialize(self):
+        return {
+            "id": self.id,
+            "name": self.name,
+        }
+
+    @staticmethod
+    def deserialize(json):
+        return Department(json["name"], json["id"])

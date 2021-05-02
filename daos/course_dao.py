@@ -35,7 +35,7 @@ class CourseDao:
 
     @staticmethod
     def create_course(course, commit=True):
-        sql = "insert into courses values (default, %s. %s, %s, %s, %s, %s)"
+        sql = "insert into courses values (default, %s, %s, %s, %s, %s, %s)"
         cursor = connection.cursor()
         cursor.execute(sql, [course.name, course.type.id, course.start_date, course.end_date, course.grading_format.id,
                        course.cost])
