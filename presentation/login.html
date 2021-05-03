@@ -48,7 +48,7 @@
 
     
     <div class="form-group">
-        <label for="exampleInputEmail1">Employee ID</label>
+        <div id="message"></div>
         <input type="text" class="form-control" id="loginId"
             placeholder="Enter Employee ID">
     </div>
@@ -65,7 +65,7 @@ function login() {
         xhr.onreadystatechange = function () {
             console.log(this.readyState)
             if (this.readyState == 4 && this.status == 200) {
-                console.log(this.response)
+                console.log(JSON.parse(this.response))
             } else if (this.readyState == 4) {
                 document.getElementById("message").innerHTML = "Unable to login with that Id"
             }
