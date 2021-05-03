@@ -57,7 +57,6 @@ insert into roles ("name") values
 				  ('Benifits Coordinator'),
 				  ('Unassigned');
 insert into reimbursement_status("name") values
-								('Unfinished'),
 								('Pending Supervisor Approval'),
 								('Pending Department Approval'),
 								('Pending BenCo Approval'),
