@@ -73,7 +73,7 @@ class ReimbursementDao:
     def create_reimbursement(reimbursement, commit=True):
         if reimbursement.course.id is None:
             reimbursement.course.id = CourseDao.create_course(reimbursement.course)
-        sql = "insert into reimbursements values (default, %s, %s, %s, %s, %s, %s)"
+        sql = "insert into reimbursements values (default, %s, 1, %s, %s, %s, %s)"
         cursor = connection.cursor()
         cursor.execute(sql, [reimbursement.employee_id,
                              reimbursement.status.id,

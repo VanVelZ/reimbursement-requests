@@ -19,3 +19,8 @@
             document.cookie = "employee=" + undefined
             window.location.reload()
         }
+        function checkCookie() {
+            if (employee == undefined){
+                window.location.replace("login.html")
+            }
+        }
