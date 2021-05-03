@@ -1,6 +1,10 @@
+from datetime import datetime
+
 from daos.course_type_dao import CourseTypeDao
 from daos.grading_format_dao import GradingFormatDao
 from models.course import Course
+from models.course_type import CourseType
+from models.grading_format import GradingFormat
 from utils.db_connection import connection
 
 
@@ -35,9 +39,11 @@ class CourseDao:
 
     @staticmethod
     def create_course(course, commit=True):
-        sql = "insert into courses values (default, %s, %s, %s, %s, %s, %s)"
+        sql = "insert into courses values (default, %s, %s, %s, %s, %s, %s) Returning id"
         cursor = connection.cursor()
         cursor.execute(sql, [course.name, course.type.id, course.start_date, course.end_date, course.grading_format.id,
                        course.cost])
         connection.commit() if commit else connection.rollback()
-        return True
+        return cursor.fetchone()
+
+

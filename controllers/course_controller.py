@@ -1,3 +1,0 @@
-
-def route(app):
-    pass
