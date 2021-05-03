@@ -20,7 +20,7 @@ class Course:
             "startDate": self.start_date,
             "endDate": self.end_date,
             "gradingFormat": self.grading_format.serialize(),
-            "cost": self.cost
+            "cost": str(self.cost)
         }
 
     @staticmethod

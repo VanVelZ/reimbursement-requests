@@ -8,7 +8,7 @@ class CourseType:
         return {
             "id": self.id,
             "name": self.name,
-            "reimbursementPercent": self.reimbursement_percent
+            "reimbursementPercent": str(self.reimbursement_percent)
         }
 
     @staticmethod

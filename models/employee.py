@@ -27,7 +27,7 @@ class Employee:
             "lastName": self.last_name,
             "department": self.department.serialize(),
             "role": self.role.serialize(),
-            "supervisor": self.supervisor.serialize(),
+            "supervisor": self.supervisor.serialize() if self.supervisor else None,
             "reimbursements": self._get_reimbursements_as_json(self.reimbursements),
             "supervisedReimbursements": self._get_reimbursements_as_json(self.supervised_employees_reimbursements),
             "departmentReimbursements": self._get_reimbursements_as_json(self.department_employees_reimbursements)

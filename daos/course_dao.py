@@ -28,7 +28,7 @@ class CourseDao:
 
     @staticmethod
     def get_course(id):
-        sql = "Select * from course_types where id = %s"
+        sql = "Select * from courses where id = %s"
         cursor = connection.cursor()
         cursor.execute(sql, [id])
         record = cursor.fetchone()
