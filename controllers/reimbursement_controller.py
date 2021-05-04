@@ -1,10 +1,14 @@
-from flask import request
+from flask import request, jsonify
 
 from models.reimbursement import Reimbursement
 from services.reimbursement_service import ReimbursementService
 
 
 def route(app):
+
+    @app.route("/reimbursement/<id>", methods=["GET"])
+    def get_reimbursements_by_employee(id):
+        return jsonify(ReimbursementService.get_reimbursements_by_employee(id))
 
     @app.route("/reimbursement/", methods=["PUT"])
     def create_reimbursement():
@@ -19,4 +23,4 @@ def route(app):
     def update_reimbursement(id):
         status_id = request.json["statusId"]
         message = request.json["message"]
-        return ReimbursementService.update_reimbursement(id, status_id , message)
+        return ReimbursementService.update_reimbursement(id, status_id, message)

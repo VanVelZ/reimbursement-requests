@@ -10,3 +10,11 @@ class ReimbursementService:
     @staticmethod
     def update_reimbursement(id, status_id, message):
         return ReimbursementDao.update_reimbursement(id, status_id, message)
+
+    @staticmethod
+    def get_reimbursements_by_employee(id):
+        reimbursements = ReimbursementDao.get_reimbursements_by_employee_id(id)
+        serialized = []
+        for reimbursement in reimbursements:
+            serialized.append(reimbursement.serialize())
+        return serialized
