@@ -20,6 +20,7 @@
             window.location.reload()
         }
         function checkCookie() {
+            employee = getCookie("employee")
             if (employee == undefined){
                 window.location.replace("login.html")
             }

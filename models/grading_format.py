@@ -8,9 +8,9 @@ class GradingFormat:
         return {
             "id": self.id,
             "type": self.type,
-            "requires_presentation": self.requires_presentation
+            "requiresPresentation": self.requires_presentation
         }
 
     @staticmethod
     def deserialize(json):
-        return GradingFormat(json["type"], json["requires_presentation"], json["id"])
+        return GradingFormat(type=json["type"], requires_presentation=json["requiresPresentation"], id=json["id"])

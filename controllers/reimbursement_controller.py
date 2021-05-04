@@ -9,7 +9,11 @@ def route(app):
     @app.route("/reimbursement/", methods=["PUT"])
     def create_reimbursement():
         reimbursement = Reimbursement.deserialize(request.json)
-        return ReimbursementService.create_reimbursement(reimbursement)
+        did_submit = ReimbursementService.create_reimbursement(reimbursement)
+        if did_submit:
+            return "Great!", 200
+        else:
+            return "NOOOO", 400
 
     @app.route("/reimbursement/<id>", methods=["PATCH"])
     def update_reimbursement(id):

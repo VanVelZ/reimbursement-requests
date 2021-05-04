@@ -26,6 +26,7 @@ class Reimbursement:
 
     @staticmethod
     def deserialize(json):
+        print(json)
         return Reimbursement(employee_id=json["employeeId"],
                              status=ReimbursementStatus.deserialize(json["status"]),
                              date_submitted=json["dateSubmitted"],

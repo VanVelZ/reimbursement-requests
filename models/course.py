@@ -1,3 +1,4 @@
+from models.course_type import CourseType
 from models.grading_format import GradingFormat
 
 
@@ -31,4 +32,4 @@ class Course:
                       end_date=json["endDate"],
                       cost=json["cost"],
                       grading_format=GradingFormat.deserialize(json["gradingFormat"]),
-                      type=GradingFormat.deserialize(json["type"]))
+                      type=CourseType.deserialize(json["type"]))

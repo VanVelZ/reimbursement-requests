@@ -37,7 +37,7 @@
                     </div>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link disabled" href="index.html">Logout</a>
+                    <a class="nav-link" onclick="clearCookie()" href="index.html">Logout</a>
                 </li>
             </ul>
         </div>
@@ -67,49 +67,88 @@
             <option value="8">Other</option>
         </select>
         <label for="start">Start date:</label>
-        <input type="date" id="start" name="start" value="2018-07-22" min="2021-06-01" max="2022-12-31">
+        <input type="date" id="start" name="start" value="2021-06-01" min="2021-06-01" max="2022-12-31">
         <label for="end">End date:</label>
-        <input type="date" id="end" name="end" value="2018-07-22" min="2021-06-01" max="2022-12-31">
+        <input type="date" id="end" name="end" value="2021-06-01" min="2021-06-01" max="2022-12-31">
         <input type="number" class="form-control" id="courseCost" placeholder="Cost">
+        <textarea id="info"></textarea>
     </div>
     <button type="submit" class="btn btn-primary" onclick="makeRequest()">Submit</button>
 </body>
+<script src="cookieHandler.js"></script>
 <script>
 
-    function login() {
+    function makeRequest() {
 
-        loginId = document.getElementById("loginId").value;
+        employee = JSON.parse(getCookie("employee"))
+        courseName = document.getElementById("courseName").value
+        courseTypeId = document.getElementById("courseType").value
+        gradingFormatId = document.getElementById("gradingFormat").value
+        startDate = startDate = document.getElementById("start").value
+        endDate = document.getElementById("end").value
+        cost = document.getElementById("courseCost").value
+        message = document.getElementById("info").value
 
         let xhr = new XMLHttpRequest();
 
         xhr.onreadystatechange = function () {
             console.log(this.readyState)
             if (this.readyState == 4 && this.status == 200) {
-                document.cookie = "employee=" + this.responseText + "Max-Age=0"
                 window.location.href = "index.html"
             } else if (this.readyState == 4) {
-                document.getElementById("message").innerHTML = "Unable to login with that Id"
+                document.getElementById("message").innerHTML = "Please fill out all fields"
             }
         }
 
-        url = "http://127.0.0.1:5000/employees/"
+        url = "http://127.0.0.1:5000/reimbursement/"
 
-        xhr.open("POST", url, true)
+        xhr.open("PUT", url, true)
 
-        let login = {
-            loginId: loginId
+        let request = {
+            id: null,
+            employeeId: employee.id,
+            message: message,
+            status: {
+                id: null,
+                name: null
+            },
+            dateSubmitted: betterDate(Date.now()),
+            course: {
+                id: null,
+                name: courseName,
+                type: {
+                    id: courseTypeId,
+                    name: null,
+                    reimbursementPercent: null
+                },
+                startDate: betterDate(startDate),
+                endDate: betterDate(endDate),
+                gradingFormat: {
+                    id: gradingFormatId,
+                    type: null,
+                    requiresPresentation: null
+                },
+                cost: cost
+            },
+            amount: (cost / 30)
         }
-
+        console.log(request)
         //May not be required - needs further testing
         //Add Headers to our requests
         xhr.setRequestHeader('Content-Type', 'application/json')
 
-        xhr.send(JSON.stringify(login));
+        xhr.send(JSON.stringify(request));
 
     }
-
+    function betterDate(intDate) {
+        date = new Date(intDate)
+        dd = date.getDate()
+        mm = date.getMonth()
+        yyyy = date.getFullYear()
+        return yyyy + "-" + mm + "-" + dd
+        
+    }
 </script>
-<script src="cookieHandler.js"></script>
 <!-- Optional JavaScript -->
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
