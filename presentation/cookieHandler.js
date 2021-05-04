@@ -15,7 +15,7 @@
             return undefined;
         }
 
-        function clearCookie(cname){
+        function clearCookie(){
             document.cookie = "employee=" + undefined
             window.location.href = "login.html"
         }
