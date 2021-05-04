@@ -8,8 +8,8 @@ class ReimbursementService:
         return ReimbursementDao.create_reimbursement(reimbursement)
 
     @staticmethod
-    def update_reimbursement(id, status_id, message):
-        return ReimbursementDao.update_reimbursement(id, status_id, message)
+    def update_reimbursement(id, status_id, message, amount):
+        return ReimbursementDao.update_reimbursement(id, status_id, message, amount)
 
     @staticmethod
     def get_reimbursements_by_employee(id):

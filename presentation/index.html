@@ -14,7 +14,7 @@
     <script src="cookieHandler.js"></script>
 </head>
 
-<body onload="checkCookie()">
+<body onloadstart="checkCookie()" onload="getAttentionSeekers()">
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <a class="navbar-brand" href="#">Reimbursement Portal</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
@@ -45,27 +45,62 @@
             </ul>
         </div>
     </nav>
-
-    <script>
-
-        function checkCookie() {
-            employee = getCookie("employee")
-            console.log(employee)
-            if (employee == undefined) {
-                location.href = "login.html"
-            }
-        }
-            </script>
-
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-        crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
-        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
-        crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
-        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
-        crossorigin="anonymous"></script>
+    <table id="needsAttention" on="getAttentionSeekers()">
+        <tr>
+            <th>Name</th>
+            <th>Course</th>
+            <th>Course Type</th>
+            <th>Grading Format</th>
+            <th>Course Start</th>
+            <th>Course End</th>
+            <th>Course Price</th>
+            <th>Additional Info</th>
+            <th>Estimated Disbursement</th>
+        </tr>
+    </table>
 </body>
+<script>
+    function getAttentionSeekers(){
+        employee = JSON.parse(getCookie("employee"))
+        needsAttention = employee.reimbursements
 
+        needsAttention.forEach(request => {
+            console.log(request)
+            document.getElementById("needsAttention").innerHTML += `
+            <tr>
+                <td>${request.employee.firstName} ${request.employee.lastName}</td>
+                <td>${request.course.name}</td>
+                <td>${request.course.type.name}</td>
+                <td>${request.course.gradingFormat.type}</td>
+                <td>${request.course.startDate}</td>
+                <td>${request.course.endDate}</td>
+                <td>${request.course.cost}</td>
+                <td>${request.message}</td>
+                <td>${request.amount}</td>
+            </tr>
+            <tr>
+                <td colspan=2> 
+                    <button id='accept${request.id}'' onclick='accept(${request.id})'">Accept</button>    
+                </td>
+                <td colspan=2>
+                    <button id='deny${request.id}'' onclick='deny(${request.id})'">Deny</button>    
+                </td>
+                <td colspan=2>
+                    <button id='moreInfo${request.id}'' onclick='moreInfo(${request.id})'">More Info</button>    
+                </td>
+            `
+        });
+    }
+</script>
+
+
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+    integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+    crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+    integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+    crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+    integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+    crossorigin="anonymous"></script>
 </html>

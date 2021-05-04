@@ -23,4 +23,5 @@ def route(app):
     def update_reimbursement(id):
         status_id = request.json["statusId"]
         message = request.json["message"]
-        return ReimbursementService.update_reimbursement(id, status_id, message)
+        amount = request.json["amount"]
+        return ReimbursementService.update_reimbursement(id, status_id, message, amount)

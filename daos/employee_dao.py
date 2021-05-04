@@ -1,5 +1,4 @@
 from daos.department_dao import DepartmentDao
-from daos.reimbursement_dao import ReimbursementDao
 from daos.role_dao import RoleDao
 from models.employee import Employee
 from utils.db_connection import connection
@@ -73,16 +72,8 @@ class EmployeeDao:
             employee = Employee(id=record[0], first_name=record[1], last_name=record[2], login_id=record[3])
             employee.department = DepartmentDao.get_department(record[4])
             employee.role = RoleDao.get_role(record[5])
-            employee.reimbursements = ReimbursementDao.get_reimbursements_by_employee_id(employee.id)
-            if employee.department.head == employee.id:
-                department_employees = EmployeeDao.get_employees_by_department(employee.department.id)
-                for emp in department_employees:
-                    employee.department_employees_reimbursements = \
-                        ReimbursementDao.get_reimbursements_awaiting_approval(emp.id, 3)
-            supervised_employees = EmployeeDao.get_supervised_employees(employee.id)
-            for emp in supervised_employees:
-                employee.supervised_employees_reimbursements = \
-                    ReimbursementDao.get_reimbursements_awaiting_approval(emp.id, 2)
+            if record[6]:
+                employee.supervisor = EmployeeDao.get_employee(record[6])
             return employee
         else:
             return False

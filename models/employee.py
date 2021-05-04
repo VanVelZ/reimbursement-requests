@@ -1,3 +1,6 @@
+from models.department import Department
+from models.role import Role
+
 
 class Employee:
 
@@ -16,9 +19,7 @@ class Employee:
         self.role = role
         self.supervisor = supervisor
         self.id = id
-        self.reimbursements = []
-        self.department_employees_reimbursements = []
-        self.supervised_employees_reimbursements = []
+        self.reimbursements_needing_attention = []
 
     def serialize(self):
         return {
@@ -28,11 +29,17 @@ class Employee:
             "department": self.department.serialize(),
             "role": self.role.serialize(),
             "supervisor": self.supervisor.serialize() if self.supervisor else None,
-            "reimbursements": self._get_reimbursements_as_json(self.reimbursements),
-            "supervisedReimbursements": self._get_reimbursements_as_json(self.supervised_employees_reimbursements),
-            "departmentReimbursements": self._get_reimbursements_as_json(self.department_employees_reimbursements)
+            "reimbursements": self._get_reimbursements_as_json(self.reimbursements_needing_attention),
 
         }
+    @staticmethod
+    def deserialize(json):
+        return Employee(id=json["id"],
+                        first_name=json["firstName"],
+                        last_name=json["lastName"],
+                        department=Department.deserialize(json["department"]),
+                        role=Role.deserialize(json["role"]),
+                        supervisor=Employee.deserialize(json["supervisor"]))
 
     @staticmethod
     def _get_reimbursements_as_json(reimbursements):
