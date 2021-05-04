@@ -60,8 +60,8 @@
     </table>
 </body>
 <script>
+    employee = JSON.parse(getCookie("employee"))
     function getAttentionSeekers(){
-        employee = JSON.parse(getCookie("employee"))
         needsAttention = employee.reimbursements
 
         needsAttention.forEach(request => {
@@ -75,8 +75,8 @@
                 <td>${request.course.startDate}</td>
                 <td>${request.course.endDate}</td>
                 <td>${request.course.cost}</td>
-                <td>${request.message}</td>
-                <td>${request.amount}</td>
+                <td><textarea id="message${request.id}">${request.message}</textarea></td>
+                <td><input id='amount${request.id}' type="text" value=${request.amount} disabled></td>
             </tr>
             <tr>
                 <td colspan=2> 
@@ -94,17 +94,114 @@
 
     function accept(id){
 
+        reimbursement = employee.reimbursements.find(x => x.id == id)
+        statusId = parseInt(reimbursement.status.id) + 1
+        message = document.getElementById(`message${id}`).value
+        amount = document.getElementById(`amount${id}`).value
+
+        let xhr = new XMLHttpRequest();
+
+        xhr.onreadystatechange = function () {
+            if (this.readyState == 4 && this.status == 200) {
+                console.log("Everything is okay")
+                login(employee.loginId)
+            } else if (this.readyState == 4) {
+                console.log("Something is wrong")
+            }
+        }
+
+        url = `http://127.0.0.1:5000/reimbursement/${id}`
+
+        xhr.open("PATCH", url, true)
+
+        let patch = {
+            statusId: statusId,
+            message: message,
+            amount: amount
+        }
+
+        console.log(patch)
+        //May not be required - needs further testing
+        //Add Headers to our requests
+        xhr.setRequestHeader('Content-Type', 'application/json')
+
+        xhr.send(JSON.stringify(patch));
+
     }
     function deny(id){
+        reimbursement = employee.reimbursements.find(x => x.id == id)
+        statusId = 6
+        message = document.getElementById(`message${id}`).value
+        amount = 0
+
+        let xhr = new XMLHttpRequest();
+
+        xhr.onreadystatechange = function () {
+            if (this.readyState == 4 && this.status == 200) {
+                console.log("Everything is okay")
+                login(employee.loginId)
+            } else if (this.readyState == 4) {
+                console.log("Something is wrong")
+            }
+        }
+
+        url = `http://127.0.0.1:5000/reimbursement/${id}`
+
+        xhr.open("PATCH", url, true)
+
+        let patch = {
+            statusId: statusId,
+            message: message,
+            amount: amount
+        }
+
+        console.log(patch)
+        //May not be required - needs further testing
+        //Add Headers to our requests
+        xhr.setRequestHeader('Content-Type', 'application/json')
+
+        xhr.send(JSON.stringify(patch));
 
     }
     function moreInfo(id){
+        reimbursement = employee.reimbursements.find(x => x.id == id)
+        statusId = 7
+        message = document.getElementById(`message${id}`).value
+        amount = document.getElementById(`amount${id}`).value
+
+        let xhr = new XMLHttpRequest();
+
+        xhr.onreadystatechange = function () {
+            if (this.readyState == 4 && this.status == 200) {
+                console.log("Everything is okay")
+                login(employee.loginId)
+            } else if (this.readyState == 4) {
+                console.log("Something is wrong")
+            }
+        }
+
+        url = `http://127.0.0.1:5000/reimbursement/${id}`
+
+        xhr.open("PATCH", url, true)
+
+        let patch = {
+            statusId: statusId,
+            message: message,
+            amount: amount
+        }
+
+        console.log(patch)
+        //May not be required - needs further testing
+        //Add Headers to our requests
+        xhr.setRequestHeader('Content-Type', 'application/json')
+
+        xhr.send(JSON.stringify(patch));
         
     }
 
 </script>
 
-
+<script src="main.js"></script>
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
     integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
     crossorigin="anonymous"></script>

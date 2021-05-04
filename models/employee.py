@@ -25,21 +25,22 @@ class Employee:
         return {
             "id": self.id,
             "firstName": self.first_name,
+            "loginId": self.login_id,
             "lastName": self.last_name,
             "department": self.department.serialize(),
             "role": self.role.serialize(),
             "supervisor": self.supervisor.serialize() if self.supervisor else None,
-            "reimbursements": self._get_reimbursements_as_json(self.reimbursements_needing_attention),
-
+            "reimbursements": self._get_reimbursements_as_json(self.reimbursements_needing_attention)
         }
     @staticmethod
     def deserialize(json):
         return Employee(id=json["id"],
+                        login_id=json["loginId"],
                         first_name=json["firstName"],
                         last_name=json["lastName"],
                         department=Department.deserialize(json["department"]),
                         role=Role.deserialize(json["role"]),
-                        supervisor=Employee.deserialize(json["supervisor"]))
+                        supervisor=Employee.deserialize(json["supervisor"]) if json["supervisor"] else None)
 
     @staticmethod
     def _get_reimbursements_as_json(reimbursements):

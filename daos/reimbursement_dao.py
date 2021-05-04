@@ -88,6 +88,6 @@ class ReimbursementDao:
     def update_reimbursement(id, status_id, message, amount, commit=True):
         sql = "update reimbursements set status_id = %s, message=%s, amount=%s where id=%s"
         cursor = connection.cursor()
-        cursor.execute(sql, status_id, message, amount, id)
+        cursor.execute(sql, [status_id, message, amount, id])
         connection.commit() if commit else connection.rollback()
-        return cursor.rowcount
+        return str(cursor.rowcount)
