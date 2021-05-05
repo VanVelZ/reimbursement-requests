@@ -1,6 +1,7 @@
 from time import sleep
 
 from behave import given, when, then
+from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.safari.webdriver import WebDriver
 
 
@@ -64,8 +65,8 @@ def user_starts_request(context):
 def user_enters_info(context):
     page = context.reimbursement_portal
     page.course_name().send_keys("How to ball chase in Rocket League")
-    page.start_date().send_keys("06/15/06")
-    page.start_date().send_keys("06/30/06")
+    page.start_date().send_keys("06" + Keys.TAB + "15" + Keys.TAB + "2021")
+    page.start_date().send_keys("06" + Keys.TAB + "15" + Keys.TAB + "2021")
     page.course_cost().send_keys("100")
     page.info().send_keys("It is really important and relevant to my work")
     page.submit().click()

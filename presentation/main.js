@@ -6,7 +6,6 @@ function login(id) {
     let xhr = new XMLHttpRequest();
 
     xhr.onreadystatechange = function () {
-        console.log(this.readyState)
         if (this.readyState == 4 && this.status == 200) {
             document.cookie = "employee=" + this.responseText
             if (!id) window.location.href = "index.html"
@@ -34,8 +33,6 @@ function betterDate(intDate) {
     date = new Date(intDate)
     dd = date.getUTCDate()
     mm = date.getUTCMonth() + 1
-    console.log(mm)
-    console.log(dd)
     yyyy = date.getUTCFullYear()
     if (parseInt(dd) < 10) {
         dd = "0" + dd
@@ -43,7 +40,6 @@ function betterDate(intDate) {
     if (parseInt(mm) < 10) {
         mm = "0" + mm
     }
-    console.log(intDate + " " + date)
     return yyyy + "-" + mm + "-" + dd
 
 }
