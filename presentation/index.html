@@ -39,6 +39,7 @@
     <table id="needsAttention" on="getAttentionSeekers()">
         <tr>
             <th>Name</th>
+            <th>Approval Stage</th>
             <th>Course</th>
             <th>Course Type</th>
             <th>Grading Format</th>
@@ -64,6 +65,7 @@
             <tr>
                 <td>${request.employee.firstName} ${request.employee.lastName}</td>
                 <td>${request.course.name}</td>
+                <td>${request.status.name}</td>
                 <td>${request.course.type.name}</td>
                 <td>${request.course.gradingFormat.type}</td>
                 <td>${betterDate(request.course.startDate)}</td>

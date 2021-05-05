@@ -14,6 +14,7 @@ class EmployeeService:
 def _get_reimbursements_needing_attention(employee):
     employee.reimbursements_needing_attention = ReimbursementDao.get_reimbursements_awaiting_approval(employee.id, 7)
     employee.reimbursements_needing_attention += ReimbursementDao.get_reimbursements_awaiting_approval(employee.id, 5)
+    employee.reimbursements_needing_attention += ReimbursementDao.get_reimbursements_awaiting_approval(employee.id, 4)
     if employee.department.head == employee.id:
         department_employees = EmployeeDao.get_employees_by_department(employee.department.id)
         for emp in department_employees:
