@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-    <title>Reimbursement Portal</title>
+    <title>New Reimbursement</title>
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -24,33 +24,32 @@
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
-                <li class="nav-item active">
+                <li class="nav-item">
                     <a class="nav-link" href="index.html">Home <span class="sr-only">(current)</span></a>
                 </li>
                 <li class="nav-item active">
                     <a class="nav-link" href="newrequest.html">Start New</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" onclick="clearCookie()">Logout</a>
+                    <a class="nav-link" onclick="clearCookie()" id="logout">Logout</a>
                 </li>
             </ul>
         </div>
     </nav>
 
-
-
-    <div class="form-group">
+    <div class="form-group" id="form">
+        <h1>Make new Request</h1>
         <div id="message"></div>
-        <input type="text" class="form-control" id="courseName" placeholder="Course Name">
-        <select name="courseType" id="courseType" onchange="changePercent()">
+        <input type="text" class="form-control" id="courseName" placeholder="Course Name"><br>
+        <select name="courseType" id="courseType" onchange="changePercent()" class="form-control" >
             <option value="1">University</option>
             <option value="2">Seminar</option>
             <option value="3">Certification Prep</option>
             <option value="4">Certification</option>
             <option value="5">Technical Training</option>
             <option value="6">Other</option>
-        </select>
-        <select name="gradingFormat" id="gradingFormat">
+        </select><br>
+        <select name="gradingFormat" id="gradingFormat" class="form-control" >
             <option value="1">Percentage</option>
             <option value="2">Letter</option>
             <option value="3">Norm-Reference</option>
@@ -59,16 +58,17 @@
             <option value="6">Standards</option>
             <option value="7">Narrative</option>
             <option value="8">Other</option>
-        </select>
+        </select><br>
         <label for="start">Start date:</label>
-        <input type="date" id="start" name="start" value="2021-06-01" min="2021-06-01" max="2022-12-31">
+        <input type="date" id="start" name="start" value="2021-06-01" min="2021-06-01" max="2022-12-31" class="form-control"><br>
         <label for="end">End date:</label>
-        <input type="date" id="end" name="end" value="2021-06-01" min="2021-06-01" max="2022-12-31">
-        <input type="number" onkeyup="getCost()" class="form-control" id="courseCost" placeholder="Cost">
-        <textarea id="info"></textarea>
-        <input type="number" class="form-control" id="expectedAmount" placeholder="0.0" disabled>
+        <input type="date" id="end" name="end" value="2021-06-01" min="2021-06-01" max="2022-12-31"  class="form-control"><br>
+        <input type="number" onkeyup="getCost()" class="form-control" id="courseCost" placeholder="Cost" class="form-control"><br>
+        <label for="info">Addition Info:</label>
+        <textarea id="info" class="form-control"></textarea>
+        <input type="number" class="form-control" id="expectedAmount" placeholder="0.0" disabled  class="form-control" >
+        <button type="submit" id="submit" class="btn btn-primary" onclick="makeRequest()">Submit</button>
     </div>
-    <button type="submit" class="btn btn-primary" onclick="makeRequest()">Submit</button>
 </body>
 <script>
     expectedReimbursement = 0
@@ -98,7 +98,7 @@
 
         url = "http://127.0.0.1:5000/reimbursement/"
 
-        xhr.open("PUT", url, true)
+        xhr.open("PUT", url, false)
 
         let request = {
             id: null,

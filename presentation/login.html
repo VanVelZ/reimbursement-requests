@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-    <title>Reimbursement Portal</title>
+    <title>Reimbursement Login</title>
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -23,14 +23,14 @@
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
-                <li class="nav-item active">
+                <li class="nav-item">
                     <a class="nav-link" href="index.html">Home <span class="sr-only">(current)</span></a>
                 </li>
-                <li class="nav-item active">
+                <li class="nav-item">
                     <a class="nav-link" href="newrequest.html">Start New</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" onclick="clearCookie()">Logout</a>
+                    <a class="nav-link" onclick="clearCookie()" id="logout">Logout</a>
                 </li>
             </ul>
         </div>
@@ -38,11 +38,11 @@
 
 
 
-    <div class="form-group">
+    <div class="form-group" id="form">
         <div id="message"></div>
         <input type="text" class="form-control" id="loginId" placeholder="Enter Employee ID">
+        <button type="submit" class="btn btn-primary" id="login" onclick="login()">Submit</button>
     </div>
-    <button type="submit" class="btn btn-primary" onclick="login()">Submit</button>
 </body>
 <script src="main.js"></script>
 <script src="cookieHandler.js"></script>

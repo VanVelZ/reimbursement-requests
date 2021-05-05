@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-    <title>Reimbursement Portal</title>
+    <title>Reimbursement Home</title>
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -25,19 +25,20 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item active">
-                    <a class="nav-link" href="index.html">Home <span class="sr-only">(current)</span></a>
-                </li>
-                <li class="nav-item active">
-                    <a class="nav-link" href="newrequest.html">Start New</a>
+                    <a class="nav-link" href="index.html" id="home">Home <span class="sr-only">(current)</span></a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" onclick="clearCookie()">Logout</a>
+                    <a class="nav-link" href="newrequest.html" id="newRequest">Start New</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" onclick="clearCookie()" id="logout">Logout</a>
                 </li>
             </ul>
         </div>
     </nav>
-    <table id="needsAttention" on="getAttentionSeekers()">
-        <tr>
+    <h1 id="welcome"></h1>
+    <table id="needsAttention" on="getAttentionSeekers()" class="table table-bordered table-striped">
+        <thead>
             <th>Name</th>
             <th>Approval Stage</th>
             <th>Course</th>
@@ -48,7 +49,8 @@
             <th>Course Price</th>
             <th>Additional Info</th>
             <th>Estimated Disbursement</th>
-        </tr>
+            <th>Actions</th>
+        </thead>
     </table>
 </body>
 <script>
@@ -56,12 +58,14 @@
         checkCookie()
         employee = JSON.parse(getCookie("employee"))
         getAttentionSeekers()
+        document.getElementById("welcome").innerHTML = `Tuition Reimbursements for ${employee.role.name} ${employee.firstName} ${employee.lastName}`
     }
     function getAttentionSeekers() {
         var needsAttention = employee.reimbursements
-        needsAttention.forEach(request => {
-            console.log(request)
-            document.getElementById("needsAttention").innerHTML += `
+        if (needsAttention.length) {
+            needsAttention.forEach(request => {
+                console.log(request)
+                document.getElementById("needsAttention").innerHTML += `
             <tr>
                 <td>${request.employee.firstName} ${request.employee.lastName}</td>
                 <td>${request.course.name}</td>
@@ -73,19 +77,22 @@
                 <td>${request.course.cost}</td>
                 <td><textarea id="message${request.id}">${request.message}</textarea></td>
                 <td><input id='amount${request.id}' class="amount" type="text" value=${request.amount}></td>
+                <td>
+                    <button id='accept${request.id}' class="accept" onclick='accept(${request.id})'">Accept</button>
+                    <button id='deny${request.id}' class="deny" onclick='deny(${request.id})'">Deny</button>  
+                    <button id='moreInfo${request.id}' class="moreinfo" onclick='moreInfo(${request.id})'">Request More Info</button>  
+                </td>
             </tr>
-            <tr>
-                <td colspan=2> 
-                    <button id='accept${request.id}'' onclick='accept(${request.id})'">Accept</button>    
-                </td>
-                <td colspan=2>
-                    <button id='deny${request.id}'' onclick='deny(${request.id})'">Deny</button>    
-                </td>
-                <td colspan=2>
-                    <button id='moreInfo${request.id}'' onclick='moreInfo(${request.id})'">More Info</button>    
-                </td>
             `
-        });
+            });
+        }
+        else {
+            document.getElementById('needsAttention').innerHTML += `
+            <tr>
+                <td colspan=11>There is nothing to see here. Do you need to<a href="newrequest.html"> make a request?</a></td>
+            </tr>
+            `
+        }
         if (employee.role.id != 4) {
             elements = document.getElementsByClassName("amount")
             Array.prototype.forEach.call(elements, function (element) {
