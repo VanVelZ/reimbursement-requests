@@ -27,17 +27,8 @@
                 <li class="nav-item active">
                     <a class="nav-link" href="index.html">Home <span class="sr-only">(current)</span></a>
                 </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
-                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Requests
-                    </a>
-                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="newrequest.html">Start New</a>
-                        <a class="dropdown-item" href="requestList.html">View</a>
-                        <!--<div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="#">Something else here</a>-->
-                    </div>
+                <li class="nav-item active">
+                    <a class="nav-link" href="newrequest.html">Start New</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" onclick="clearCookie()">Logout</a>
@@ -51,7 +42,7 @@
     <div class="form-group">
         <div id="message"></div>
         <input type="text" class="form-control" id="courseName" placeholder="Course Name">
-        <select name="courseType" id="courseType">
+        <select name="courseType" id="courseType" onchange="changePercent()">
             <option value="1">University</option>
             <option value="2">Seminar</option>
             <option value="3">Certification Prep</option>
@@ -73,12 +64,15 @@
         <input type="date" id="start" name="start" value="2021-06-01" min="2021-06-01" max="2022-12-31">
         <label for="end">End date:</label>
         <input type="date" id="end" name="end" value="2021-06-01" min="2021-06-01" max="2022-12-31">
-        <input type="number" class="form-control" id="courseCost" placeholder="Cost">
+        <input type="number" onkeyup="getCost()" class="form-control" id="courseCost" placeholder="Cost">
         <textarea id="info"></textarea>
+        <input type="number" class="form-control" id="expectedAmount" placeholder="0.0" disabled>
     </div>
     <button type="submit" class="btn btn-primary" onclick="makeRequest()">Submit</button>
 </body>
 <script>
+    expectedReimbursement = 0
+    reimbursementPercent = .8
 
     function makeRequest() {
 
@@ -132,7 +126,7 @@
                 },
                 cost: cost
             },
-            amount: (cost / 30)
+            amount: parseFloat(expectedReimbursement).toFixed(2)
         }
         console.log(request)
         //May not be required - needs further testing
@@ -151,9 +145,40 @@
         return yyyy + "-" + mm + "-" + dd
         
     }
+    function changePercent(){
+        courseType = document.getElementById("courseType").value
+        console.log(courseType);
+        switch(parseInt(courseType)){
+            case 1: 
+                reimbursementPercent = 0.8
+                break
+            case 2:
+                reimbursementPercent = 0.6
+                break
+            case 3:
+                reimbursementPercent = 0.75
+                break
+            case 4:
+                reimbursementPercent = 1
+                break
+            case 5:
+                reimbursementPercent = 0.9
+                break
+            default:
+                reimbursementPercent = 0.3
+                break
+        }
+        getCost()
+    }
+        function getCost(){
+            cost = document.getElementById("courseCost").value
+            expectedReimbursement = cost * reimbursementPercent
+            document.getElementById("expectedAmount").value = parseFloat(expectedReimbursement).toFixed(2)
+        }
 </script>
 <!-- Optional JavaScript -->
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script src="main.js"></script>
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
     integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
     crossorigin="anonymous"></script>
