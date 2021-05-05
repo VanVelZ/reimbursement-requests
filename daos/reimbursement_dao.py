@@ -54,6 +54,16 @@ class ReimbursementDao:
         return reimbursements
 
     @staticmethod
+    def get_reimbursements_total_for(employee_id):
+        sql = "Select sum(amount) from reimbursements where employee_id=%s and date_part('year', date_submitted) = " \
+              "date_part('year', now()) and status_id != 6;"
+        cursor = connection.cursor()
+        cursor.execute(sql, [employee_id])
+        record = cursor.fetchone()
+        total = record[0]
+        return total
+
+    @staticmethod
     def get_reimbursements_awaiting_approval(employee_id, status_id):
         sql = "Select * from reimbursements where employee_id=%s and status_id = %s"
         cursor = connection.cursor()
@@ -95,3 +105,4 @@ class ReimbursementDao:
         cursor.execute(sql, [status_id, message, amount, id])
         connection.commit() if commit else connection.rollback()
         return str(cursor.rowcount)
+

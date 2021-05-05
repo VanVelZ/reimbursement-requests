@@ -75,7 +75,6 @@
     reimbursementPercent = .8
 
     function makeRequest() {
-
         employee = JSON.parse(getCookie("employee"))
         courseName = document.getElementById("courseName").value
         courseTypeId = document.getElementById("courseType").value
@@ -90,6 +89,7 @@
         xhr.onreadystatechange = function () {
             console.log(this.readyState)
             if (this.readyState == 4 && this.status == 200) {
+                login(employee.loginId)
                 window.location.href = "index.html"
             } else if (this.readyState == 4) {
                 document.getElementById("message").innerHTML = "Please fill out all fields"
@@ -126,7 +126,8 @@
                 },
                 cost: cost
             },
-            amount: parseFloat(expectedReimbursement).toFixed(2)
+            amount: (expectedReimbursement > getAllowedReimbursements() ?
+                parseFloat(getAllowedReimbursements()).toFixed(2) : parseFloat(expectedReimbursement).toFixed(2))
         }
         console.log(request)
         //May not be required - needs further testing
@@ -136,20 +137,11 @@
         xhr.send(JSON.stringify(request));
 
     }
-
-    function betterDate(intDate) {
-        date = new Date(intDate)
-        dd = date.getDate()
-        mm = date.getMonth()
-        yyyy = date.getFullYear()
-        return yyyy + "-" + mm + "-" + dd
-        
-    }
-    function changePercent(){
+    function changePercent() {
         courseType = document.getElementById("courseType").value
         console.log(courseType);
-        switch(parseInt(courseType)){
-            case 1: 
+        switch (parseInt(courseType)) {
+            case 1:
                 reimbursementPercent = 0.8
                 break
             case 2:
@@ -170,11 +162,18 @@
         }
         getCost()
     }
-        function getCost(){
-            cost = document.getElementById("courseCost").value
-            expectedReimbursement = cost * reimbursementPercent
-            document.getElementById("expectedAmount").value = parseFloat(expectedReimbursement).toFixed(2)
-        }
+    function getCost() {
+        cost = document.getElementById("courseCost").value
+        expectedReimbursement = cost * reimbursementPercent
+        document.getElementById("expectedAmount").value = (expectedReimbursement > getAllowedReimbursements() ?
+            parseFloat(getAllowedReimbursements()).toFixed(2) : parseFloat(expectedReimbursement).toFixed(2));
+    }
+    function getAllowedReimbursements() {
+        employee = JSON.parse(getCookie("employee"))
+        console.log(employee.totalReimbursements)
+        console.log(1000 - parseFloat(employee.totalReimbursements))
+        return 1000 - parseFloat(employee.totalReimbursements)
+    }
 </script>
 <!-- Optional JavaScript -->
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->

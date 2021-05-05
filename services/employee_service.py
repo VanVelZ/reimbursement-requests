@@ -7,6 +7,7 @@ class EmployeeService:
     def login(login_id):
         employee = EmployeeDao.login(login_id)
         _get_reimbursements_needing_attention(employee)
+        employee.total_reimbursements_this_year = ReimbursementDao.get_reimbursements_total_for(employee.id)
         return employee
 
 

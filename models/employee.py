@@ -20,6 +20,7 @@ class Employee:
         self.supervisor = supervisor
         self.id = id
         self.reimbursements_needing_attention = []
+        self.total_reimbursements_this_year = 0
 
     def serialize(self):
         return {
@@ -30,7 +31,8 @@ class Employee:
             "department": self.department.serialize(),
             "role": self.role.serialize(),
             "supervisor": self.supervisor.serialize() if self.supervisor else None,
-            "reimbursements": self._get_reimbursements_as_json(self.reimbursements_needing_attention)
+            "reimbursements": self._get_reimbursements_as_json(self.reimbursements_needing_attention),
+            "totalReimbursements": str(self.total_reimbursements_this_year)
         }
     @staticmethod
     def deserialize(json):
