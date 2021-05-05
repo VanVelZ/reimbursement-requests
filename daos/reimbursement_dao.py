@@ -8,8 +8,8 @@ from utils.db_connection import connection
 class ReimbursementDao:
 
     @staticmethod
-    def get_all_reimbursements():
-        sql = "Select * from reimbursements"
+    def get_all_reimbursements_for_benco():
+        sql = "Select * from reimbursements where status_id = 3"
         cursor = connection.cursor()
         cursor.execute(sql)
         records = cursor.fetchall()
@@ -74,9 +74,13 @@ class ReimbursementDao:
     def create_reimbursement(reimbursement, commit=True):
         if reimbursement.course.id is None:
             reimbursement.course.id = CourseDao.create_course(reimbursement.course)
-        sql = "insert into reimbursements values (default, %s, 1, %s, %s, %s, %s)"
+        status = 1
+        if not reimbursement.employee.supervisor:
+            status = 2
+        sql = "insert into reimbursements values (default, %s, %s, %s, %s, %s, %s)"
         cursor = connection.cursor()
         cursor.execute(sql, [reimbursement.employee.id,
+                             status,
                              reimbursement.date_submitted,
                              reimbursement.course.id,
                              reimbursement.amount,

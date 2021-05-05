@@ -61,9 +61,8 @@
 </body>
 <script>
     employee = JSON.parse(getCookie("employee"))
-    function getAttentionSeekers(){
+    function getAttentionSeekers() {
         needsAttention = employee.reimbursements
-
         needsAttention.forEach(request => {
             console.log(request)
             document.getElementById("needsAttention").innerHTML += `
@@ -76,7 +75,7 @@
                 <td>${request.course.endDate}</td>
                 <td>${request.course.cost}</td>
                 <td><textarea id="message${request.id}">${request.message}</textarea></td>
-                <td><input id='amount${request.id}' type="text" value=${request.amount} disabled></td>
+                <td><input id='amount${request.id}' class="amount" type="text" value=${request.amount}></td>
             </tr>
             <tr>
                 <td colspan=2> 
@@ -90,9 +89,15 @@
                 </td>
             `
         });
+        if (employee.role.id != 4) {
+            elements = document.getElementsByClassName("amount")
+            Array.prototype.forEach.call(elements, function (element) {
+                element.disabled = true
+            });
+        }
     }
 
-    function accept(id){
+    function accept(id) {
 
         reimbursement = employee.reimbursements.find(x => x.id == id)
         statusId = parseInt(reimbursement.status.id) + 1
@@ -128,7 +133,7 @@
         xhr.send(JSON.stringify(patch));
 
     }
-    function deny(id){
+    function deny(id) {
         reimbursement = employee.reimbursements.find(x => x.id == id)
         statusId = 6
         message = document.getElementById(`message${id}`).value
@@ -163,7 +168,7 @@
         xhr.send(JSON.stringify(patch));
 
     }
-    function moreInfo(id){
+    function moreInfo(id) {
         reimbursement = employee.reimbursements.find(x => x.id == id)
         statusId = 7
         message = document.getElementById(`message${id}`).value
@@ -196,7 +201,7 @@
         xhr.setRequestHeader('Content-Type', 'application/json')
 
         xhr.send(JSON.stringify(patch));
-        
+
     }
 
 </script>
@@ -211,4 +216,5 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
     integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
     crossorigin="anonymous"></script>
+
 </html>

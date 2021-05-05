@@ -22,3 +22,6 @@ def _get_reimbursements_needing_attention(employee):
     for emp in supervised_employees:
         employee.reimbursements_needing_attention += \
             ReimbursementDao.get_reimbursements_awaiting_approval(emp.id, 1)
+    if employee.role.id == 4:
+        employee.reimbursements_needing_attention += \
+            ReimbursementDao.get_all_reimbursements_for_benco()
