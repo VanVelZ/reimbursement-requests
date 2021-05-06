@@ -37,6 +37,7 @@
         </div>
     </nav>
     <h1 id="welcome"></h1>
+    <h2 id="departmentInfo"></h2>
     <table id="needsAttention" on="getAttentionSeekers()" class="table table-bordered table-striped">
         <thead>
             <th>Name</th>
@@ -58,7 +59,10 @@
         checkCookie()
         employee = JSON.parse(getCookie("employee"))
         getAttentionSeekers()
-        document.getElementById("welcome").innerHTML = `Tuition Reimbursements for ${employee.role.name} ${employee.firstName} ${employee.lastName}`
+        document.getElementById("welcome").innerHTML = `Reimbursement Alerts for ${employee.role.name} ${employee.firstName} ${employee.lastName}`
+        departmentInfo = (employee.id == employee.department.head) ? "Head of Department:" : "Department:"
+        document.getElementById("departmentInfo").innerHTML = `${departmentInfo} ${employee.department.name}`
+        
     }
     function getAttentionSeekers() {
         var needsAttention = employee.reimbursements

@@ -9,6 +9,7 @@ class Department:
         return {
             "id": self.id,
             "name": self.name,
+            "head": self.head
         }
 
     @staticmethod
