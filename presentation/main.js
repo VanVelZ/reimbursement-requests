@@ -43,12 +43,12 @@ function betterDate(intDate) {
     return yyyy + "-" + mm + "-" + dd
 
 }
-function patchRequest(id, reimbursement, statusId, amount) {
+function patchRequest(id, statusId, message, amount) {
 
-    reimbursement = employee.reimbursements.find(x => x.id == id)
-    statusId = parseInt(reimbursement.status.id) + 1
-    message = document.getElementById(`message${id}`).value
-    amount = document.getElementById(`amount${id}`).value
+    reimbursement = reimbursement
+    statusId = statusId
+    message = message
+    amount = amount
 
     let xhr = new XMLHttpRequest();
 
