@@ -6,7 +6,6 @@ from daos.employee_dao import EmployeeDao
 class MyTestCase(unittest.TestCase):
     def test_login(self):
         employee = EmployeeDao.login('100007')
-        print(employee)
         assert employee
 
 

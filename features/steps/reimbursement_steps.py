@@ -66,7 +66,7 @@ def user_enters_info(context):
     page = context.reimbursement_portal
     page.course_name().send_keys("How to ball chase in Rocket League")
     page.start_date().send_keys("06" + Keys.TAB + "15" + Keys.TAB + "2021")
-    page.start_date().send_keys("06" + Keys.TAB + "15" + Keys.TAB + "2021")
+    page.end_date().send_keys("06" + Keys.TAB + "23" + Keys.TAB + "2021")
     page.course_cost().send_keys("100")
     page.info().send_keys("It is really important and relevant to my work")
     page.submit().click()
@@ -101,7 +101,6 @@ def clicks_accept(context):
 
 @then(u'The request is approved by the user')
 def request_approved(context):
-    print(len(context.reimbursement_portal.accept_buttons()), context.request_count)
     assert len(context.reimbursement_portal.accept_buttons()) < context.request_count
 
 
@@ -131,7 +130,6 @@ def clicks_deny(context):
 
 @then(u'The request is denied by the user')
 def is_denied(context):
-    print(len(context.reimbursement_portal.accept_buttons()), context.request_count)
     assert len(context.reimbursement_portal.accept_buttons()) < context.request_count
 
 
@@ -145,5 +143,4 @@ def request_more_info(context):
 
 @then(u'The request is forwarded to the user')
 def forwarded_to_requester(context):
-    print(len(context.reimbursement_portal.accept_buttons()), context.request_count)
     assert len(context.reimbursement_portal.accept_buttons()) < context.request_count
