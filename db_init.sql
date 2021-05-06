@@ -54,7 +54,7 @@ insert into roles ("name") values
 				  ('Professor'),
 				  ('Assistant Professor'),
 				  ('Custodian'),
-				  ('Benifits Coordinator'),
+				  ('Benefits Coordinator'),
 				  ('Unassigned');
 insert into reimbursement_status("name") values
 								('Pending Supervisor Approval'),
@@ -112,8 +112,8 @@ insert into employees (first_name, last_name, login_id, department_id, role_id, 
 					  ('Nick', 'Nicholas', '200004', 3, 2, 1),
 					  ('Dill', 'Dillion', '100007', 2, 2, 2);
 insert into reimbursements (employee_id, status_id, course_id, date_submitted, amount) values
-								  (1, 1, 1, now(), 0),
-								  (1, 1, 1, now(), 0),
+								  (14, 1, 3, now(), 20),
+								  (14, 1, 4, now(), 30),
 								  (1, 1, 1, now(), 0);
 
 update departments set head_employee_id = 1 where id=1;
