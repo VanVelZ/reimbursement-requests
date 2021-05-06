@@ -25,18 +25,6 @@ class ReimbursementDao:
         return reimbursements
 
     @staticmethod
-    def get_reimbursement(id):
-        sql = "Select * from reimbursement_types where id = %s"
-        cursor = connection.cursor()
-        cursor.execute(sql, [id])
-        record = cursor.fetchone()
-        reimbursement = Reimbursement(id=record[0], date_submitted=record[3], amount=record[5], message=record[6])
-        reimbursement.course = CourseDao.get_course(record[4])
-        reimbursement.employee = EmployeeDao.get_employee(record[1])
-        reimbursement.status = ReimbursementStatusDao.get_status(record[2])
-        return reimbursement
-
-    @staticmethod
     def get_reimbursements_by_employee_id(employee_id):
         sql = "Select * from reimbursements where employee_id=%s"
         cursor = connection.cursor()

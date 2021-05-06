@@ -6,10 +6,6 @@ from services.reimbursement_service import ReimbursementService
 
 def route(app):
 
-    @app.route("/reimbursement/<id>", methods=["GET"])
-    def get_reimbursements_by_employee(id):
-        return jsonify(ReimbursementService.get_reimbursements_by_employee(id))
-
     @app.route("/reimbursement/", methods=["PUT"])
     def create_reimbursement():
         reimbursement = Reimbursement.deserialize(request.json)

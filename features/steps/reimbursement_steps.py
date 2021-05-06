@@ -69,6 +69,7 @@ def user_enters_info(context):
     page.end_date().send_keys("06" + Keys.TAB + "23" + Keys.TAB + "2021")
     page.course_cost().send_keys("100")
     page.info().send_keys("It is really important and relevant to my work")
+    sleep(10)
     page.submit().click()
     sleep(3)
 
@@ -96,7 +97,7 @@ def clicks_accept(context):
     buttons = context.reimbursement_portal.accept_buttons()
     context.request_count = len(buttons)
     buttons[0].click()
-    sleep(2)
+    sleep(3)
 
 
 @then(u'The request is approved by the user')
@@ -125,7 +126,7 @@ def clicks_deny(context):
     buttons = context.reimbursement_portal.deny_buttons()
     context.request_count = len(buttons)
     buttons[0].click()
-    sleep(2)
+    sleep(3)
 
 
 @then(u'The request is denied by the user')
@@ -138,7 +139,7 @@ def request_more_info(context):
     buttons = context.reimbursement_portal.deny_buttons()
     context.request_count = len(buttons)
     buttons[0].click()
-    sleep(2)
+    sleep(3)
 
 
 @then(u'The request is forwarded to the user')
