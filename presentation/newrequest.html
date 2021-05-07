@@ -65,7 +65,8 @@
         <input type="date" id="end" name="end" value="2021-06-01" min="2021-06-01" max="2022-12-31"  class="form-control"><br>
         <input type="number" onkeyup="getCost()" class="form-control" id="courseCost" placeholder="Cost" class="form-control"><br>
         <label for="info">Addition Info:</label>
-        <textarea id="info" class="form-control"></textarea>
+        <textarea id="info" class="form-control"></textarea><br>
+        <label for="expectedAmount">Estimated Reimbursement:</label>
         <input type="number" class="form-control" id="expectedAmount" placeholder="0.0" disabled  class="form-control" >
         <button type="submit" id="submit" class="btn btn-primary" onclick="makeRequest()" disabled>Submit</button>
     </div>
