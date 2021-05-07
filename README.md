@@ -16,8 +16,8 @@ by accepting, denying or requesting more information.
 * behave - version 1.2.6
 * selenium - version 3.141.0 
 * HTML 5
-* JavaScript
-* CSS
+* JavaScript ES6
+* CSS3
 * Bootstrap 4
 * PostgreSQL
 
