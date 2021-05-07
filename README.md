@@ -19,6 +19,7 @@ by accepting, denying or requesting more information.
 * JavaScript
 * CSS
 * Bootstrap 4
+* PostgreSQL
 
 ## Features
 
@@ -35,7 +36,7 @@ To-do list:
    
 1. git clone https://github.com/VanVelZ/reimbursement-requests.git
 2. Fill in your database info in db_connection.py
-3. Run db_init.sql on the schema
+3. Run db_init.sql on the PostgresSQL server
 4. Run app.py
 5. Open login.html
 
