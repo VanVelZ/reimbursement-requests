@@ -69,7 +69,7 @@ def user_enters_info(context):
     page.end_date().send_keys("06" + Keys.TAB + "23" + Keys.TAB + "2021")
     page.course_cost().send_keys("100")
     page.info().send_keys("It is really important and relevant to my work")
-    sleep(10)
+    sleep(2)
     page.submit().click()
     sleep(3)
 
