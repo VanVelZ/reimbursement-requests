@@ -37,7 +37,14 @@ To-do list:
 
 ## Usage
 
+###Login Page
+![Log in page](https://github.com/VanVelZ/reimbursement-requests/blob/master/images/Screen%20Shot%202021-05-07%20at%2012.52.47%20PM.png?raw=true)
 
+###Home Page
+![Home and manage page](https://github.com/VanVelZ/reimbursement-requests/blob/master/images/Screen%20Shot%202021-05-07%20at%2012.53.04%20PM.png?raw=true)
+
+###Make New Request Page
+![New Request Page](https://github.com/VanVelZ/reimbursement-requests/blob/master/images/Screen%20Shot%202021-05-07%20at%2012.53.38%20PM.png?raw=true)
 
 ## License
 
