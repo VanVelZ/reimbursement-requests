@@ -67,7 +67,7 @@
         <label for="info">Addition Info:</label>
         <textarea id="info" class="form-control"></textarea>
         <input type="number" class="form-control" id="expectedAmount" placeholder="0.0" disabled  class="form-control" >
-        <button type="submit" id="submit" class="btn btn-primary" onclick="makeRequest()">Submit</button>
+        <button type="submit" id="submit" class="btn btn-primary" onclick="makeRequest()" disabled>Submit</button>
     </div>
 </body>
 <script>
@@ -164,6 +164,9 @@
         expectedReimbursement = cost * reimbursementPercent
         document.getElementById("expectedAmount").value = (expectedReimbursement > getAllowedReimbursements() ?
             parseFloat(getAllowedReimbursements()).toFixed(2) : parseFloat(expectedReimbursement).toFixed(2));
+        
+        if (document.getElementById("expectedAmount").value <= 0){ document.getElementById("submit").disabled = true}
+        else{ document.getElementById("submit").disabled = false}
     }
     function getAllowedReimbursements() {
         employee = JSON.parse(getCookie("employee"))
