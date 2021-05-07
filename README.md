@@ -20,6 +20,7 @@ by accepting, denying or requesting more information.
 * CSS3
 * Bootstrap 4
 * PostgreSQL
+* Relational Database System on Amazon Web Service
 
 ## Features
 
