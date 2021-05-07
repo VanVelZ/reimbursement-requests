@@ -15,6 +15,10 @@ by accepting, denying or requesting more information.
 * psycopg2 - version 2.8.6
 * behave - version 1.2.6
 * selenium - version 3.141.0 
+* HTML 5
+* JavaScript
+* CSS
+* Bootstrap 4
 
 ## Features
 
